@@ -3,7 +3,6 @@ import { Field, reduxForm } from "redux-form";
 
 export class StreamCreate extends React.Component {
   renderError = ({ touched, error }) => {
-    debugger;
     if (touched && error) {
       return (
         <div className="ui error message">
