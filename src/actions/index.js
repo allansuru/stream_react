@@ -3,7 +3,7 @@ import {
   SIGN_IN,
   SIGN_OUT,
   CREATE_STREAM,
-  FEATCH_STREAM,
+  FETCH_STREAM,
   FETCH_STREAMS,
   EDIT_STREAM,
   DELETE_STREAM
@@ -35,7 +35,7 @@ export const fetchStream = id => async dispatch => {
   const response = await streams.get(`/stream/${id}`);
 
   dispatch({
-    type: FEATCH_STREAM,
+    type: FETCH_STREAM,
     payload: response.data
   });
 };
