@@ -52,20 +52,28 @@ export const fetchStream = id => async dispatch => {
 
 export const fetchStreams = () => async dispatch => {
   const { data } = await streams.get("/streams");
-  debugger;
+
   dispatch({
     type: FETCH_STREAMS,
     payload: data
   });
 };
 
-export const editStream = (id, formValues) => async dispatch => {
-  const { data } = await streams.put(`/streams/${id}`, formValues);
+export const editStream = (id, formValues) => async (dispatch, getState) => {
+  const { userId } = getState().auth;
+  const { data, status } = await streams.put(`/streams/${id}`, {
+    ...formValues,
+    userId
+  });
 
   dispatch({
     type: EDIT_STREAM,
     payload: data
   });
+
+  if (status === 200) {
+    history.push("/");
+  }
 };
 
 export const deleteStream = id => async dispatch => {
