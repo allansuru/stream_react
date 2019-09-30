@@ -31,11 +31,18 @@ export class StreamForm extends React.Component {
     return this.props.onSubmit(formValues);
   };
 
+  sendOK = () => {
+    this.props.sendOk("oi porra");
+  };
+
   render() {
     return (
+      // <button className="ui button primary" onClick={() => this.sendOK()}>
+      //   teste
+      // </button>
       <form
-        onSubmit={this.props.handleSubmit(this.onSubmit)}
         className="ui form error"
+        onSubmit={this.props.handleSubmit(this.onSubmit)}
       >
         <Field name="title" label="Enter Title" component={this.renderInput} />
         <Field

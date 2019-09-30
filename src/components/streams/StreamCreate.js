@@ -6,11 +6,15 @@ import StremForm from "./StremForm";
 export class StreamCreate extends React.Component {
   onSubmit = formValues => this.props.createStream(formValues);
 
+  sendOk = value => {
+    console.log(value);
+  };
+
   render() {
     return (
       <div>
         <h3>Create a Strem</h3>
-        <StremForm onSubmit={this.onSubmit} />
+        <StremForm sendOk={this.sendOk} onSubmit={this.onSubmit} />
       </div>
     );
   }
