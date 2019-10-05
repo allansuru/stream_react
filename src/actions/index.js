@@ -4,10 +4,10 @@ import {
   SIGN_IN,
   SIGN_OUT,
   CREATE_STREAM,
-  FETCH_STREAM,
   FETCH_STREAMS,
-  EDIT_STREAM,
-  DELETE_STREAM
+  FETCH_STREAM,
+  DELETE_STREAM,
+  EDIT_STREAM
 } from "./types";
 
 export const signIn = userId => {
@@ -25,60 +25,34 @@ export const signOut = () => {
 
 export const createStream = formValues => async (dispatch, getState) => {
   const { userId } = getState().auth;
+  const response = await streams.post("/streams", { ...formValues, userId });
 
-  const { status, data } = await streams.post("/streams", {
-    ...formValues,
-    userId
-  });
-
-  dispatch({
-    type: CREATE_STREAM,
-    payload: data
-  });
-
-  if (status === 201) {
-    history.push("/");
-  }
-};
-
-export const fetchStream = id => async dispatch => {
-  const { data } = await streams.get(`/streams/${id}`);
-
-  dispatch({
-    type: FETCH_STREAM,
-    payload: data
-  });
+  dispatch({ type: CREATE_STREAM, payload: response.data });
+  history.push("/");
 };
 
 export const fetchStreams = () => async dispatch => {
-  const { data } = await streams.get("/streams");
+  const response = await streams.get("/streams");
 
-  dispatch({
-    type: FETCH_STREAMS,
-    payload: data
-  });
+  dispatch({ type: FETCH_STREAMS, payload: response.data });
 };
 
-export const editStream = (id, formValues) => async (dispatch, getState) => {
-  const { data, status } = await streams.patch(`/streams/${id}`, formValues);
+export const fetchStream = id => async dispatch => {
+  const response = await streams.get(`/streams/${id}`);
 
-  dispatch({
-    type: EDIT_STREAM,
-    payload: data
-  });
+  dispatch({ type: FETCH_STREAM, payload: response.data });
+};
 
-  if (status === 200) {
-    history.push("/");
-  }
+export const editStream = (id, formValues) => async dispatch => {
+  const response = await streams.patch(`/streams/${id}`, formValues);
+
+  dispatch({ type: EDIT_STREAM, payload: response.data });
+  history.push("/");
 };
 
 export const deleteStream = id => async dispatch => {
-  const deletePath = `/streams/${id}`;
+  await streams.delete(`/streams/${id}`);
 
-  await streams.delete(deletePath);
-
-  dispatch({
-    type: DELETE_STREAM,
-    payload: id
-  });
+  dispatch({ type: DELETE_STREAM, payload: id });
+  history.push("/");
 };

@@ -1,16 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { fetchStreams, deleteStream, editStream } from "../../actions";
+import { fetchStreams, editStream } from "../../actions";
 
 class StreamList extends React.Component {
   componentDidMount() {
     this.props.fetchStreams();
   }
-
-  handleDelete = id => {
-    this.props.deleteStream(id);
-  };
 
   renderAdmin = stream => {
     const { userId, id } = stream;
@@ -20,12 +16,9 @@ class StreamList extends React.Component {
           <Link to={`/streams/edit/${id}`} className="ui button primary">
             Edit
           </Link>
-          <button
-            className="ui button negative"
-            onClick={() => this.handleDelete(id)}
-          >
+          <Link className="ui button negative" to={`/streams/delete/${id}`}>
             Delete
-          </button>
+          </Link>
         </div>
       );
     }
@@ -83,6 +76,5 @@ const mapStateToProps = state => {
 
 export default connect(mapStateToProps, {
   fetchStreams,
-  deleteStream,
   editStream
 })(StreamList);
