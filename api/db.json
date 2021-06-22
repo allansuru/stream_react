@@ -1,0 +1,58 @@
+{
+  "streams": [
+    {
+      "title": "GuiGui",
+      "description": "teste",
+      "id": 1
+    },
+    {
+      "title": "Over ",
+      "description": "Legal",
+      "id": 2
+    },
+    {
+      "title": "New",
+      "description": "teste",
+      "id": 3
+    },
+    {
+      "title": "New",
+      "description": "teste",
+      "id": 4
+    },
+    {
+      "title": "Mais um pam pam pam pam",
+      "description": "pam pam 123",
+      "userId": "109181292784990874587",
+      "id": 7
+    },
+    {
+      "title": "teste create 123",
+      "description": "teste 123",
+      "userId": "109181292784990874587",
+      "id": 8
+    },
+    {
+      "title": "xupa dessa manga123",
+      "description": "xupa",
+      "id": 13
+    },
+    {
+      "title": "mama mia123",
+      "description": "tteste",
+      "id": 14
+    },
+    {
+      "title": "hj",
+      "description": "hj",
+      "userId": "109181292784990874587",
+      "id": 15
+    },
+    {
+      "title": "oi",
+      "description": "teste",
+      "userId": "109181292784990874587",
+      "id": 16
+    }
+  ]
+}

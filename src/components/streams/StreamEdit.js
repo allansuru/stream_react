@@ -6,10 +6,11 @@ import StremForm from "./StremForm";
 
 class StreamEdit extends React.Component {
   componentDidMount() {
+    debugger;
     this.props.fetchStream(this.props.match.params.id);
   }
 
-  onSubmit = formValues => {
+  onSubmit = (formValues) => {
     this.props.editStream(this.props.match.params.id, formValues);
   };
 
@@ -31,7 +32,7 @@ class StreamEdit extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    stream: state.streams[ownProps.match.params.id]
+    stream: state.streams[ownProps.match.params.id],
   };
 };
 

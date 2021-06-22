@@ -1,0 +1,6 @@
+client ID= 1053139855552-4uqffvaon9lub3c2s7i6b0peenq9tnk8.apps.googleusercontent.com
+
+
+this.gapi.auth2.getAuthInstance().signIn()
+
+this.gapi.auth2.getAuthInstance().signOut()
