@@ -6,9 +6,7 @@ export class StreamForm extends React.Component {
     if (touched && error) {
       return (
         <div className="ui error message">
-          <div className="header">
-            {error}
-          </div>
+          <div className="header">{error}</div>
         </div>
       );
     }
@@ -18,28 +16,19 @@ export class StreamForm extends React.Component {
     const className = `field ${meta.error && meta.touched ? "error" : ""}`;
     return (
       <div className={className}>
-        <label>
-          {label}
-        </label>
+        <label>{label}</label>
         <input {...input} autoComplete="off" />
         {this.renderError(meta)}
       </div>
     );
   };
 
-  onSubmit = formValues => {
+  onSubmit = (formValues) => {
     return this.props.onSubmit(formValues);
-  };
-
-  sendOK = () => {
-    this.props.sendOk("oi porra");
   };
 
   render() {
     return (
-      // <button className="ui button primary" onClick={() => this.sendOK()}>
-      //   teste
-      // </button>
       <form
         className="ui form error"
         onSubmit={this.props.handleSubmit(this.onSubmit)}
@@ -56,7 +45,7 @@ export class StreamForm extends React.Component {
   }
 }
 
-const validate = formValues => {
+const validate = (formValues) => {
   const errors = {};
   if (!formValues.title) {
     errors.title = "You must enter a title";
@@ -71,5 +60,5 @@ const validate = formValues => {
 
 export default reduxForm({
   form: "streamForm",
-  validate
+  validate,
 })(StreamForm);

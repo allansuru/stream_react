@@ -12,7 +12,6 @@ registerLocale("pt-BR", pt_br);
 
 const renderInput = ({ input, label, meta }: any) => {
   const className = `field ${meta.error && meta.touched ? "error" : ""}`;
-
   return (
     <div className={className}>
       <label>{label}</label>
@@ -33,9 +32,12 @@ const renderError = ({ touched, error }: any) => {
 };
 
 const validate = (formValues: any) => {
+  debugger;
   const errors: any = {};
-  if (!formValues.title) {
-    errors.title = "You must enter a title";
+  if (!formValues.name) {
+    errors.name = "You must enter a name";
+  } else if (formValues.name.length < 4) {
+    errors.name = "Name must be 4 characteres or more";
   }
   return errors;
 };
@@ -59,21 +61,23 @@ const renderDatePicker = ({
   );
 };
 
-export const onSubmit = (formValues: any, dispatch: any) => {
-  debugger;
+export const onSubmit = (formValues: any, dispatch: any, form: any) => {
   const newUser: User = { ...formValues };
   dispatch(createUser(newUser));
 };
 
 const UserCreateForm = (props: any) => {
-  const { handleSubmit, pristine, submitting } = props;
+  const { handleSubmit, pristine, submitting, invalid } = props;
   const { payload: streams } = useSelector((state: any) => state.streams);
-
+  debugger;
   const dispatch = useDispatch();
 
   return (
     <>
-      <form className="ui form" onSubmit={handleSubmit(onSubmit, dispatch)}>
+      <form
+        className="ui form error"
+        onSubmit={handleSubmit(onSubmit, dispatch)}
+      >
         <div className="field">
           <Field
             name="name"
@@ -97,6 +101,12 @@ const UserCreateForm = (props: any) => {
               </label>
             </div>
           </div>
+          <div className="field">
+            <label>Selecione uma data</label>
+            <div>
+              <Field name="datePicker" component={renderDatePicker} />
+            </div>
+          </div>
         </div>
         <div className="field">
           <label>Selecione um stream</label>
@@ -112,22 +122,11 @@ const UserCreateForm = (props: any) => {
             </Field>
           </div>
         </div>
-        <div className="field">
-          <label>Selecione uma data</label>
-          <div>
-            <Field name="datePicker" component={renderDatePicker} />
-            {/* <DatePicker
-              name="datePicker"
-              selected={startDate}
-              onChange={(date: Date) => setStartDate(date)}
-            /> */}
-          </div>
-        </div>
         <div>
           <button
             className="ui button primary"
             type="submit"
-            disabled={submitting}
+            disabled={pristine || invalid}
           >
             Save User
           </button>
