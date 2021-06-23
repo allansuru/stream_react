@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Field, reduxForm } from "redux-form";
 import User from "interfaces/user";
 import Stream from "interfaces/stream";
+import { createUser } from "actions";
 
 const renderInput = ({ input, label, meta }: any) => {
   const className = `field ${meta.error && meta.touched ? "error" : ""}`;
@@ -35,18 +36,21 @@ const validate = (formValues: any) => {
   return errors;
 };
 
-const onSubmit = (formValues: FormEvent<HTMLFormElement>) => {
-  debugger;
-  console.log(formValues);
+export const onSubmit = (
+  formValues: FormEvent<HTMLFormElement>,
+  dispatch: any
+) => {
+  dispatch(createUser(formValues));
 };
 
 const UserCreateForm = (props: any) => {
   const { handleSubmit, pristine, submitting } = props;
   const { payload: streams } = useSelector((state: any) => state.streams);
+  const dispatch = useDispatch();
 
   return (
     <>
-      <form className="ui form" onSubmit={handleSubmit(onSubmit)}>
+      <form className="ui form" onSubmit={handleSubmit(onSubmit, dispatch)}>
         <div className="field">
           <Field
             name="name"
@@ -73,16 +77,16 @@ const UserCreateForm = (props: any) => {
         </div>
         <div className="field">
           <label>Selecione um stream</label>
-        </div>
-        <div>
-          <Field name="stream" component="select">
-            <option></option>
-            {streams.map((s: Stream) => (
-              <option value={s.id}>{s.title}</option>
-            ))}
-          </Field>
-        </div>
 
+          <div>
+            <Field name="stream" component="select">
+              <option></option>
+              {streams.map((s: Stream) => (
+                <option value={s.id}>{s.title}</option>
+              ))}
+            </Field>
+          </div>
+        </div>
         <div>
           <button
             className="ui button primary"

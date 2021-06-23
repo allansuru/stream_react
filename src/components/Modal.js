@@ -4,13 +4,11 @@ import ReactDOM from "react-dom";
 const Modal = ({ title, content, actions, onDismiss }) =>
   ReactDOM.createPortal(
     <div className="ui dimmer modals visible active">
-      <div style={Styles.container}>
-        <i
-          style={Styles.icon}
-          className="close inside icon"
-          onClick={onDismiss}
-        ></i>
-      </div>
+      <i
+        style={Styles.icon}
+        className="close inside icon"
+        onClick={onDismiss}
+      ></i>
 
       <div
         onClick={(e) => e.stopPropagation()}
@@ -32,8 +30,9 @@ const Styles = {
     zIndex: 99999,
     cursor: "pointer",
     fontSize: "25px",
-    marginBottom: "200px",
-    marginLeft: "900px",
+    position: "relative",
+    bottom: "170px",
+    left: "460px",
   },
 };
 
