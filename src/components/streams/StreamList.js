@@ -25,8 +25,8 @@ class StreamList extends React.Component {
   };
 
   renderList = () => {
-    if (this.props.streams.length) {
-      return this.props.streams[0].map((stream) => {
+    if (this.props.streams) {
+      return this.props.streams.map((stream) => {
         return (
           <div className="item" key={stream.id}>
             {this.renderAdmin(stream)}
@@ -69,7 +69,7 @@ class StreamList extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    streams: Object.values(state.streams),
+    streams: state.streams.payload,
     currentUserId: state.auth.userId,
     isSignedIn: state.auth.isSignedIn,
   };

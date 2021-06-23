@@ -42,8 +42,8 @@ export const createUser = (formValues) => async (dispatch) => {
   const response = await streams.post("/users", { ...formValues });
 
   dispatch({ type: CREATE_USER, payload: response.data });
-  debugger;
-  history.push("/users");
+
+  dispatch(hideModal());
 };
 
 export const createStream = (formValues) => async (dispatch, getState) => {
