@@ -1,21 +1,21 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import Stream from "../../interfaces/stream";
-import { showModal, hideModal } from "../../actions";
+import { showModal, hideModal, fetchStreams } from "../../actions";
 import Modal from "../Modal";
+import UserCreate from "./UserCreate";
 
 export default function UserList() {
-  const streams: Stream[] = useSelector((state: any) => state.streams);
   const { isSignedIn } = useSelector((state: any) => state.auth);
+  const { payload: streams } = useSelector((state: any) => state.streams);
   const { modal } = useSelector((state: any) => state.modal);
   const dispatch = useDispatch();
 
-  //   useEffect(() => {
-  //     console.log(streams);
-  //   }, []);
+  useEffect(() => {
+    if (!streams) {
+      dispatch(fetchStreams());
+    }
+  }, []);
 
-  console.log(streams);
   console.log(isSignedIn);
 
   const showModalHandler = () => {
@@ -27,15 +27,15 @@ export default function UserList() {
   };
 
   const renderCreate = () => {
-    if (isSignedIn) {
-      return (
-        <div style={{ textAlign: "right" }}>
-          <button onClick={showModalHandler} className="ui button primary">
-            Create User
-          </button>
-        </div>
-      );
-    }
+    // if (isSignedIn) {
+    return (
+      <div style={{ textAlign: "right" }}>
+        <button onClick={showModalHandler} className="ui button primary">
+          Create User
+        </button>
+      </div>
+    );
+    // }
   };
 
   return (
@@ -45,7 +45,7 @@ export default function UserList() {
       {modal ? (
         <Modal
           title="Create User"
-          content={null}
+          content={<UserCreate />}
           actions={null}
           onDismiss={() => hideModalHandler()}
         />

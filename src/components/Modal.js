@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 
 const Modal = ({ title, content, actions, onDismiss }) =>
   ReactDOM.createPortal(
-    <div onClick={onDismiss} className="ui dimmer modals visible active">
+    <div className="ui dimmer modals visible active">
       <div style={Styles.container}>
         <i
           style={Styles.icon}
@@ -31,10 +31,9 @@ const Styles = {
   icon: {
     zIndex: 99999,
     cursor: "pointer",
-    position: "absolute",
     fontSize: "25px",
-    right: "805px",
-    top: "195px",
+    marginBottom: "200px",
+    marginLeft: "900px",
   },
 };
 

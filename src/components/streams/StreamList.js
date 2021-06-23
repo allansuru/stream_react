@@ -8,7 +8,7 @@ class StreamList extends React.Component {
     this.props.fetchStreams();
   }
 
-  renderAdmin = stream => {
+  renderAdmin = (stream) => {
     const { userId, id } = stream;
     if (userId === this.props.currentUserId) {
       return (
@@ -25,23 +25,23 @@ class StreamList extends React.Component {
   };
 
   renderList = () => {
-    return this.props.streams.map(stream => {
-      return (
-        <div className="item" key={stream.id}>
-          {this.renderAdmin(stream)}
-          <i className="large middle aligned icon camera" />
-          <div className="content">
-            <Link className="header" to={`/streams/${stream.id}`}>
-              {stream.title}
-            </Link>
+    if (this.props.streams.length) {
+      return this.props.streams[0].map((stream) => {
+        return (
+          <div className="item" key={stream.id}>
+            {this.renderAdmin(stream)}
+            <i className="large middle aligned icon camera" />
+            <div className="content">
+              <Link className="header" to={`/streams/${stream.id}`}>
+                {stream.title}
+              </Link>
 
-            <div className="description">
-              {stream.description}
+              <div className="description">{stream.description}</div>
             </div>
           </div>
-        </div>
-      );
-    });
+        );
+      });
+    }
   };
 
   renderCreate = () => {
@@ -60,24 +60,22 @@ class StreamList extends React.Component {
     return (
       <div>
         <h2>Streams</h2>
-        <div className="ui celled list">
-          {this.renderList()}
-        </div>
+        <div className="ui celled list">{this.renderList()}</div>
         {this.renderCreate()}
       </div>
     );
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     streams: Object.values(state.streams),
     currentUserId: state.auth.userId,
-    isSignedIn: state.auth.isSignedIn
+    isSignedIn: state.auth.isSignedIn,
   };
 };
 
 export default connect(mapStateToProps, {
   fetchStreams,
-  editStream
+  editStream,
 })(StreamList);

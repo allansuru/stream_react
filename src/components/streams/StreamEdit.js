@@ -6,7 +6,6 @@ import StremForm from "./StremForm";
 
 class StreamEdit extends React.Component {
   componentDidMount() {
-    debugger;
     this.props.fetchStream(this.props.match.params.id);
   }
 
