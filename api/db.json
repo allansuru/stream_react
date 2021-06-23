@@ -63,72 +63,11 @@
   ],
   "users": [
     {
+      "name": "teste",
+      "sex": "M",
+      "stream": "1",
+      "datePicker": "2021-06-27T03:00:00.000Z",
       "id": 1
-    },
-    {
-      "name": "Allan",
-      "sex": "M",
-      "stream": "1",
-      "id": 2
-    },
-    {
-      "name": "teste",
-      "sex": "M",
-      "stream": "1",
-      "id": 3
-    },
-    {
-      "name": "Allan",
-      "sex": "M",
-      "stream": "1",
-      "id": 4
-    },
-    {
-      "name": "Oi",
-      "sex": "M",
-      "stream": "1",
-      "id": 5
-    },
-    {
-      "name": "Oi",
-      "sex": "M",
-      "stream": "1",
-      "id": 6
-    },
-    {
-      "name": "sasas",
-      "sex": "M",
-      "stream": "1",
-      "id": 7
-    },
-    {
-      "name": "teste",
-      "sex": "M",
-      "stream": "1",
-      "id": 8
-    },
-    {
-      "name": "teste",
-      "sex": "M",
-      "stream": "1",
-      "id": 9
-    },
-    {
-      "name": "teste",
-      "sex": "F",
-      "stream": "4",
-      "id": 10
-    },
-    {
-      "name": "teste",
-      "stream": "2",
-      "id": 11
-    },
-    {
-      "name": "aaa",
-      "sex": "M",
-      "stream": "2",
-      "id": 12
     }
   ]
 }

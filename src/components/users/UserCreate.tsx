@@ -1,10 +1,14 @@
-import React, { FormEvent } from "react";
+import React, { FormEvent, useState } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 import { Field, reduxForm } from "redux-form";
 import User from "interfaces/user";
 import Stream from "interfaces/stream";
 import { createUser } from "actions";
+import DatePicker, { registerLocale } from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import pt_br from "date-fns/locale/pt-BR";
+registerLocale("pt-BR", pt_br);
 
 const renderInput = ({ input, label, meta }: any) => {
   const className = `field ${meta.error && meta.touched ? "error" : ""}`;
@@ -36,16 +40,35 @@ const validate = (formValues: any) => {
   return errors;
 };
 
-export const onSubmit = (
-  formValues: FormEvent<HTMLFormElement>,
-  dispatch: any
-) => {
-  dispatch(createUser(formValues));
+const renderDatePicker = ({
+  input,
+  placeholder,
+  defaultValue,
+  meta: { touched, error },
+}: any) => {
+  return (
+    <div>
+      <DatePicker
+        {...input}
+        locale="pt-BR"
+        dateFormat="dd-MM-yyyy"
+        selected={input.value}
+      />
+      {touched && error && <span>{error}</span>}
+    </div>
+  );
+};
+
+export const onSubmit = (formValues: any, dispatch: any) => {
+  debugger;
+  const newUser: User = { ...formValues };
+  dispatch(createUser(newUser));
 };
 
 const UserCreateForm = (props: any) => {
   const { handleSubmit, pristine, submitting } = props;
   const { payload: streams } = useSelector((state: any) => state.streams);
+
   const dispatch = useDispatch();
 
   return (
@@ -82,9 +105,22 @@ const UserCreateForm = (props: any) => {
             <Field name="stream" component="select">
               <option></option>
               {streams.map((s: Stream) => (
-                <option value={s.id}>{s.title}</option>
+                <option key={s.id} value={s.id}>
+                  {s.title}
+                </option>
               ))}
             </Field>
+          </div>
+        </div>
+        <div className="field">
+          <label>Selecione uma data</label>
+          <div>
+            <Field name="datePicker" component={renderDatePicker} />
+            {/* <DatePicker
+              name="datePicker"
+              selected={startDate}
+              onChange={(date: Date) => setStartDate(date)}
+            /> */}
           </div>
         </div>
         <div>

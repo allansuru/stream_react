@@ -25,8 +25,10 @@ class StreamList extends React.Component {
   };
 
   renderList = () => {
-    if (this.props.streams) {
-      return this.props.streams.map((stream) => {
+    return (
+      this.props &&
+      this.props.streams &&
+      this.props.streams.map((stream) => {
         return (
           <div className="item" key={stream.id}>
             {this.renderAdmin(stream)}
@@ -40,8 +42,8 @@ class StreamList extends React.Component {
             </div>
           </div>
         );
-      });
-    }
+      })
+    );
   };
 
   renderCreate = () => {
