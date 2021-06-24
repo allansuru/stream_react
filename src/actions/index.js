@@ -1,4 +1,4 @@
-import streams from "../apis/streams";
+import api from "../apis/streams";
 import history from "../history";
 import { toast } from "react-toastify";
 import {
@@ -40,7 +40,7 @@ export const hideModal = () => {
 };
 
 export const createUser = (formValues) => async (dispatch) => {
-  const response = await streams.post("/users", { ...formValues });
+  const response = await api.post("/users", { ...formValues });
 
   dispatch({ type: CREATE_USER, payload: response.data });
 
@@ -50,33 +50,37 @@ export const createUser = (formValues) => async (dispatch) => {
 
 export const createStream = (formValues) => async (dispatch, getState) => {
   const { userId } = getState().auth;
-  const response = await streams.post("/streams", { ...formValues, userId });
+  const response = await api.post("/streams", { ...formValues, userId });
 
   dispatch({ type: CREATE_STREAM, payload: response.data });
   history.push("/");
 };
 
 export const fetchStreams = () => async (dispatch) => {
-  const response = await streams.get("/streams");
+  try {
+    const response = await api.get("/streams");
 
-  dispatch({ type: FETCH_STREAMS, payload: response.data });
+    dispatch({ type: FETCH_STREAMS, payload: response.data });
+  } catch (err) {
+    toast.error("Erro ao listar o steams");
+  }
 };
 
 export const fetchStream = (id) => async (dispatch) => {
-  const response = await streams.get(`/streams/${id}`);
+  const response = await api.get(`/streams/${id}`);
 
   dispatch({ type: FETCH_STREAM, payload: response.data });
 };
 
 export const editStream = (id, formValues) => async (dispatch) => {
-  const response = await streams.patch(`/streams/${id}`, formValues);
+  const response = await api.patch(`/streams/${id}`, formValues);
 
   dispatch({ type: EDIT_STREAM, payload: response.data });
   history.push("/");
 };
 
 export const deleteStream = (id) => async (dispatch) => {
-  await streams.delete(`/streams/${id}`);
+  await api.delete(`/streams/${id}`);
 
   dispatch({ type: DELETE_STREAM, payload: id });
   history.push("/");
