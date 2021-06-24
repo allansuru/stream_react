@@ -9,9 +9,13 @@ import Header from "./Header";
 import history from "../history";
 import UserList from "./users/UserList";
 
+import "react-toastify/dist/ReactToastify.min.css";
+import { ToastContainer } from "react-toastify";
+
 const App = () => {
   return (
     <div className="container">
+      <ToastContainer />
       <Router history={history}>
         <Header />
         <div>

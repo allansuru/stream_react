@@ -40,7 +40,7 @@ const validate = (formValues: any) => {
   } else if (formValues.name.length < 4) {
     errors.name = "Name must be 4 characteres or more";
   }
-  debugger;
+
   if (!formValues.datePicker) {
     errors.datePicker = "You must enter a date";
   }

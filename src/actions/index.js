@@ -1,5 +1,6 @@
 import streams from "../apis/streams";
 import history from "../history";
+import { toast } from "react-toastify";
 import {
   SIGN_IN,
   SIGN_OUT,
@@ -44,6 +45,7 @@ export const createUser = (formValues) => async (dispatch) => {
   dispatch({ type: CREATE_USER, payload: response.data });
 
   dispatch(hideModal());
+  toast.success("Usuário adicionado com sucesso!");
 };
 
 export const createStream = (formValues) => async (dispatch, getState) => {
