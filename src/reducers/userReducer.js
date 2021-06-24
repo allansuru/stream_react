@@ -22,7 +22,8 @@ export default (state = initialState, action) => {
         error: "",
       };
     case FETCH_USERS_SUCCESS:
-      return { ...state, data: action.payload, loading: false };
+      debugger;
+      return { ...state, data: action.data, loading: false };
     case FETCH_USERS_ERROR:
       return { ...state, loading: false, error: action.error };
 

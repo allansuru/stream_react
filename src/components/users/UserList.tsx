@@ -9,11 +9,13 @@ export default function UserList() {
   const { isSignedIn } = useSelector((state: any) => state.auth);
   const { payload: streams } = useSelector((state: any) => state.streams);
   const { modal } = useSelector((state: any) => state.modal);
-  const { payload: users } = useSelector((state: any) => state.user);
+  const { data: users } = useSelector((state: any) => {
+    return state.user;
+  });
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!users) {
+    if (users.length === 0) {
       dispatch(fetchUsers());
     }
 

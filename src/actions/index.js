@@ -13,6 +13,8 @@ import {
   HIDE_MODAL,
   CREATE_USER,
   FETCH_USERS,
+  FETCH_USERS_SUCCESS,
+  FETCH_USERS_ERROR,
 } from "./types";
 
 export const signIn = (userId) => {
@@ -58,11 +60,14 @@ export const createStream = (formValues) => async (dispatch, getState) => {
 };
 
 export const fetchUsers = () => async (dispatch) => {
+  dispatch({ type: FETCH_USERS });
   try {
     const response = await api.get("/users");
-
-    dispatch({ type: FETCH_USERS, payload: response.data });
+    if (response.status === 200) {
+      dispatch({ type: FETCH_USERS_SUCCESS, data: response.data });
+    }
   } catch (err) {
+    dispatch({ type: FETCH_USERS_ERROR, error: err.message });
     toast.error("Erro ao listar o usuarios");
   }
 };
