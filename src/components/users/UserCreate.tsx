@@ -5,9 +5,11 @@ import { Field, reduxForm } from "redux-form";
 import User from "interfaces/user";
 import Stream from "interfaces/stream";
 import { createUser } from "actions";
-import DatePicker, { registerLocale } from "react-datepicker";
+import { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import pt_br from "date-fns/locale/pt-BR";
+import { RenderDatePicker } from "./RenderDatePicker";
+
 registerLocale("pt-BR", pt_br);
 
 const renderInput = ({ input, label, meta }: any) => {
@@ -32,33 +34,18 @@ const renderError = ({ touched, error }: any) => {
 };
 
 const validate = (formValues: any) => {
-  debugger;
   const errors: any = {};
   if (!formValues.name) {
     errors.name = "You must enter a name";
   } else if (formValues.name.length < 4) {
     errors.name = "Name must be 4 characteres or more";
   }
-  return errors;
-};
+  debugger;
+  if (!formValues.datePicker) {
+    errors.datePicker = "You must enter a date";
+  }
 
-const renderDatePicker = ({
-  input,
-  placeholder,
-  defaultValue,
-  meta: { touched, error },
-}: any) => {
-  return (
-    <div>
-      <DatePicker
-        {...input}
-        locale="pt-BR"
-        dateFormat="dd-MM-yyyy"
-        selected={input.value}
-      />
-      {touched && error && <span>{error}</span>}
-    </div>
-  );
+  return errors;
 };
 
 export const onSubmit = (formValues: any, dispatch: any, form: any) => {
@@ -69,7 +56,6 @@ export const onSubmit = (formValues: any, dispatch: any, form: any) => {
 const UserCreateForm = (props: any) => {
   const { handleSubmit, pristine, submitting, invalid } = props;
   const { payload: streams } = useSelector((state: any) => state.streams);
-  debugger;
   const dispatch = useDispatch();
 
   return (
@@ -92,7 +78,13 @@ const UserCreateForm = (props: any) => {
             <label>Sex</label>
             <div className="field">
               <label>
-                <Field name="sex" component="input" type="radio" value="M" />{" "}
+                <Field
+                  name="sex"
+                  checked={true}
+                  component="input"
+                  type="radio"
+                  value="M"
+                />{" "}
                 Male
               </label>
               <label>
@@ -104,7 +96,7 @@ const UserCreateForm = (props: any) => {
           <div className="field">
             <label>Selecione uma data</label>
             <div>
-              <Field name="datePicker" component={renderDatePicker} />
+              <Field name="datePicker" component={RenderDatePicker} />
             </div>
           </div>
         </div>
