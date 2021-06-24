@@ -12,6 +12,7 @@ import {
   SHOW_MODAL,
   HIDE_MODAL,
   CREATE_USER,
+  FETCH_USERS,
 } from "./types";
 
 export const signIn = (userId) => {
@@ -54,6 +55,16 @@ export const createStream = (formValues) => async (dispatch, getState) => {
 
   dispatch({ type: CREATE_STREAM, payload: response.data });
   history.push("/");
+};
+
+export const fetchUsers = () => async (dispatch) => {
+  try {
+    const response = await api.get("/users");
+
+    dispatch({ type: FETCH_USERS, payload: response.data });
+  } catch (err) {
+    toast.error("Erro ao listar o usuarios");
+  }
 };
 
 export const fetchStreams = () => async (dispatch) => {

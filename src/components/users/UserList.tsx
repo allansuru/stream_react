@@ -1,16 +1,22 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { showModal, hideModal, fetchStreams } from "../../actions";
+import { showModal, hideModal, fetchStreams, fetchUsers } from "../../actions";
 import Modal from "../Modal";
 import UserCreate from "./UserCreate";
+import UserListTable from "./UserListTable";
 
 export default function UserList() {
   const { isSignedIn } = useSelector((state: any) => state.auth);
   const { payload: streams } = useSelector((state: any) => state.streams);
   const { modal } = useSelector((state: any) => state.modal);
+  const { payload: users } = useSelector((state: any) => state.user);
   const dispatch = useDispatch();
 
   useEffect(() => {
+    if (!users) {
+      dispatch(fetchUsers());
+    }
+
     if (!streams) {
       dispatch(fetchStreams());
     }
@@ -41,6 +47,7 @@ export default function UserList() {
   return (
     <>
       <h1>USER LIST</h1>
+      {UserListTable(users)}
       {renderCreate()}
       {modal ? (
         <Modal

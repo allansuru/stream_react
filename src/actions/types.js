@@ -8,3 +8,6 @@ export const EDIT_STREAM = "EDIT_STREAM";
 export const SHOW_MODAL = "SHOW_MODAL";
 export const HIDE_MODAL = "HIDE_MODAL";
 export const CREATE_USER = "CREATE_USER";
+export const FETCH_USERS_SUCCESS = "FETCH_USERS_SUCCESS";
+export const FETCH_USERS = "FETCH_USERS";
+export const FETCH_USERS_ERROR = "FETCH_USERS_ERROR";
