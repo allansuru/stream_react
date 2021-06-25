@@ -9,13 +9,11 @@ export default function UserList() {
   const { isSignedIn } = useSelector((state: any) => state.auth);
   const { payload: streams } = useSelector((state: any) => state.streams);
   const { modal } = useSelector((state: any) => state.modal);
-  const { data: users } = useSelector((state: any) => {
-    return state.user;
-  });
+  const { data: users, loading } = useSelector((state: any) => state.user);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (users.length === 0) {
+    if (!users.length) {
       dispatch(fetchUsers());
     }
 
@@ -49,7 +47,7 @@ export default function UserList() {
   return (
     <>
       <h1>USER LIST</h1>
-      {UserListTable(users)}
+      {UserListTable(users, loading)}
       {renderCreate()}
       {modal ? (
         <Modal
